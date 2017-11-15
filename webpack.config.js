@@ -1,10 +1,18 @@
 const path = require('path');
+const webpack = require('webpack');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackPluginConfig = new HtmlWebpackPlugin({
   template: './public/index.html',
   filename: 'index.html',
   inject: 'body'
+})
+
+const DefinePluginConfig = new webpack.DefinePlugin({
+  'process.env': {
+    'NODE_ENV': JSON.stringify('development')
+  },
+  'API_BASE_URL': JSON.stringify('https://swapi.co/api/')
 })
 
 module.exports = {
@@ -36,5 +44,8 @@ module.exports = {
       },
     ]
   },
-  plugins: [HtmlWebpackPluginConfig]
+  plugins: [
+    HtmlWebpackPluginConfig,
+    DefinePluginConfig
+  ]
 }
