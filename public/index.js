@@ -11,7 +11,7 @@ import { createStore } from 'redux'
 import configureStore from './app/store'
 import Routes from './app/routes'
 
-import { Root } from './app'
+import Root from './app/components/Root'
 
 
 const initialState = {

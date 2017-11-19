@@ -1,13 +1,14 @@
 import React from 'react'
 import { Route } from 'react-router'
-import { Link } from 'react-router-dom'
 
-import App from './components/App'
+import { App } from './components'
+import { PeoplePage, HomeworldPage } from '../people'
 
 
 export default (
   <div>
     <Route exact path="/" component={App} />
-    <Route path="/about" component={() => (<h1>About <Link to="/">Home</Link></h1>)} />
+    <Route path="/people" component={PeoplePage} />
+    <Route path="/people/:id/homeworld" component={HomeworldPage} />
   </div>
 )

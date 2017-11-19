@@ -4,6 +4,8 @@ import { connect } from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Link } from 'react-router-dom'
 
+import './app.scss'
+
 class App extends Component {
 
   componentDidMount() {
@@ -12,8 +14,12 @@ class App extends Component {
   render() {
     const { children } = this.props
     return (
-      <div>
-        <h1> Home <Link to="/about">About</Link> </h1>
+      <div id="App">
+        <h1>
+          Star Wars Wiki
+        </h1>
+        <p> <Link to="/people"> Character list </Link> </p>
+        { children }
       </div>
     )
   }

@@ -2,11 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ConnectedRouter } from 'react-router-redux'
 
-import './Root.scss';
+import './root.scss';
 
 const Root = ({ history, routes }) => (
   <ConnectedRouter history={history}  >
-    {routes}
+    <div id="Root">
+      {routes}
+    </div>
   </ConnectedRouter>
 )
 
