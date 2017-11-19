@@ -21,6 +21,7 @@ module.exports = {
     path: path.resolve('dist'),
     filename: 'bundle.js'
   },
+  devtool: 'eval',
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },

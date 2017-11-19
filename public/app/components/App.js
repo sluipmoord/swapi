@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
+import 'bootstrap/dist/css/bootstrap.css'
+import { Link } from 'react-router-dom'
+
 class App extends Component {
 
   componentDidMount() {
@@ -10,9 +13,10 @@ class App extends Component {
     const { children } = this.props
     return (
       <div>
-        <p> hello </p>
-        { children }
+        <h1> Home <Link to="/about">About</Link> </h1>
       </div>
     )
   }
 }
+
+export default App

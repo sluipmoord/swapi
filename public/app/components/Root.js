@@ -1,14 +1,18 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import { ConnectedRouter } from 'react-router-redux'
 
-import 'bootstrap/dist/css/bootstrap.css';
 import './Root.scss';
 
-export default class Root extends React.Component {
-  render() {
-    return (
-     <div style={{textAlign: 'center'}}>
-        <h1> Hello World </h1>
-      </div>
-    )
-  }
+const Root = ({ history, routes }) => (
+  <ConnectedRouter history={history}  >
+    {routes}
+  </ConnectedRouter>
+)
+
+Root.propTypes = {
+  history: PropTypes.object.isRequired,
+  routes: PropTypes.object.isRequired
 }
+
+export default Root

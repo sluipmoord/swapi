@@ -1,11 +1,13 @@
 import React from 'react'
 import { Route } from 'react-router'
+import { Link } from 'react-router-dom'
 
-import { App } from './components'
+import App from './components/App'
 
 
 export default (
-  <Route component={App}>
-
-  </Route>
+  <div>
+    <Route exact path="/" component={App} />
+    <Route path="/moo" component={() => (<h1>About <Link to="/">Home</Link></h1>)} />
+  </div>
 )
