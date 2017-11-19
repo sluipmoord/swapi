@@ -8,6 +8,6 @@ import App from './components/App'
 export default (
   <div>
     <Route exact path="/" component={App} />
-    <Route path="/moo" component={() => (<h1>About <Link to="/">Home</Link></h1>)} />
+    <Route path="/about" component={() => (<h1>About <Link to="/">Home</Link></h1>)} />
   </div>
 )

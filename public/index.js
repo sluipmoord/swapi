@@ -2,7 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 
-import createHistory from 'history/createBrowserHistory'
+import { createHashHistory } from 'history'
 
 import { Provider } from 'react-redux'
 
@@ -17,8 +17,12 @@ import { Root } from './app'
 const initialState = {
   ...window.__INITIAL_STATE__ // User for server side rendering
 }
-const store = configureStore(initialState)
-const history = createHistory()
+const history = createHashHistory({
+  basname: '',
+  hashType: 'slash'
+})
+
+const store = configureStore(initialState, history)
 
 ReactDOM.render(
   <Provider store={store}>
