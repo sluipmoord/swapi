@@ -1,16 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-
 import { createHashHistory } from 'history'
-
 import { Provider } from 'react-redux'
-
 import { createStore } from 'redux'
 
 import configureStore from './app/store'
 import Routes from './app/routes'
-
 import Root from './app/components/Root'
 
 
