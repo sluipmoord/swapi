@@ -39,7 +39,7 @@ const routes = [
   { path: '/people',
     component: PeoplePage,
     routes: [
-      { path: '/people/:id/homeworld',
+      { path: '/people/:id/homeworld', // separate page for links
         component: HomeworldPage
       }
     ]

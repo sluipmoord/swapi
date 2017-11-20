@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import PeopleList from './PeopleList'
+
 const PeoplePage = ({ children, match }) => {
   return (
     <div>
@@ -8,6 +10,7 @@ const PeoplePage = ({ children, match }) => {
       <div>
         <Link to={`${match.url}/1/homeworld`}> Home World  </Link>
       </div>
+      <PeopleList />
       { children }
     </div>
   )

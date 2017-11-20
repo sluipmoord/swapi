@@ -35,6 +35,7 @@ export const normalizeResponseMiddleware = store => next => action => {
         if (status >= 200 && status < 300 && schema) {
           try {
             if (results) {
+              console.log(results, normalize(results, schema))
               return {
                 ...data,
                 ...extraData,
