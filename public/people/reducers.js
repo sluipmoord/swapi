@@ -27,10 +27,21 @@ const peopleByPage = (state = {}, { type, ...action }) => {
   return state
 }
 
-const currentPage = (state = '', { type, ...action }) => {
+const pagination = (state = {
+  current: null,
+  next: null,
+  previous: null,
+  total: 0
+}, { type, ...action }) => {
   const { data, config } = getPayload(action)
   if (type == FETCH_PEOPLE_SUCCESS) {
-    return `${config.url}`
+    return {
+      current: `${config.url}`,
+      next: data.next,
+      previous: data.previous,
+      total: data.count,
+      ...state
+    }
   }
   return state
 }
@@ -38,6 +49,6 @@ const currentPage = (state = '', { type, ...action }) => {
 export const peopleReducer = combineReducers({
   peopleById,
   peopleByPage,
-  currentPage,
+  pagination,
   isFetching: makeIsFetching(FETCH_PEOPLE)
 })
