@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-const reducers = {
+import { peopleReducer } from '../people'
 
+const reducers = {
+  people: peopleReducer
 }
 
 const appReducer = combineReducers({

@@ -15,7 +15,9 @@ class PeopleList extends Component {
 }
 
 const mapStateToProps = () => {
-  return {}
+  return {
+
+  }
 }
 const mapDispatchToProps = {
   fetchPeople
