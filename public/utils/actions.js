@@ -1,10 +1,11 @@
 
 export const makeFetchAction = (type, schema, path) => (options = {}) => {
-  let url = path
+  let fetchUrl = path
 
   const {
     id = null,
-    page
+    page,
+    url
   } = options
 
   const params = {
@@ -12,14 +13,17 @@ export const makeFetchAction = (type, schema, path) => (options = {}) => {
   }
 
   if (id) {
-    url = `${path}/${id}`
+    fetchUrl = `${path}/${id}`
+  } else if (url) {
+    fetchUrl = url
   }
-  console.log(type);
+  fetchUrl = fetchUrl.replace(API_BASE_URL, '')
+
   return {
     type,
     payload: {
-      request: { url, params }
+      request: { url: fetchUrl, params }
     },
-    response: { schema }
+    response: { schema, fetchUrl }
   }
 }

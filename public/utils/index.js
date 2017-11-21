@@ -1,6 +1,7 @@
 export {
   getPayload,
   mergeEntities,
+  makeIsFetching,
 } from './reducers'
 
 export {

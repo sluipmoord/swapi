@@ -5,7 +5,6 @@ export const getPayload = (action) => {
   return payload || {}
 }
 
-
 export const mergeEntities = (state, action, entityKey) => {
   const { data } = getPayload(action)
   const entities = get(data, `entities.${entityKey}`)
@@ -13,4 +12,15 @@ export const mergeEntities = (state, action, entityKey) => {
     return merge({}, state, entities)
   }
   return state
+}
+
+export const makeIsFetching = (baseType) => {
+  return (state = false, {type, ...action}) => {
+    if (type == baseType) {
+      return true
+    } else {
+      return false
+    }
+    return state
+  }
 }
