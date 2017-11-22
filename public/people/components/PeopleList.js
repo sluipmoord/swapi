@@ -1,4 +1,5 @@
 import moment from 'moment'
+import { debounce } from 'lodash'
 
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
@@ -54,20 +55,23 @@ class PeopleList extends Component {
   }
 
   handleSearch = (e) => {
-    const { filter } = this.props
+    const { filter, fetchPeople } = this.props
     const options = {
       filter: {
         ...filter,
         name: e.target.value
       }
     }
-    console.log(options);
-    this.props.fetchPeople(options)
+    if (this.debounce) {
+      this.debounce.cancel()
+    }
+    this.debounce = debounce(fetchPeople, 10)
+    this.debounce(options)
   }
 
   render() {
     const { isFetching, pagination, filter, people = [] } = this.props
-    console.log(filter);
+
     let body
     if (isFetching) {
       body = <Loading />
@@ -93,7 +97,7 @@ class PeopleList extends Component {
         </div>
       )
     } else {
-      <Alert color="info">
+      body = <Alert color="info">
         No results found
       </Alert>
     }

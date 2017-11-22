@@ -20,7 +20,6 @@ export const makeFetchAction = (type, schema, path) => (options = {}) => {
     fetchUrl = url
   }
   fetchUrl = fetchUrl.replace(API_BASE_URL, '')
-  console.log(params, filter);
   return {
     type,
     payload: {
