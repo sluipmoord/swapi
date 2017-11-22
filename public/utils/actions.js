@@ -5,11 +5,13 @@ export const makeFetchAction = (type, schema, path) => (options = {}) => {
   const {
     id = null,
     page,
-    url
+    url,
+    filter = {}
   } = options
 
   const params = {
-    page
+    page,
+    search: filter.name
   }
 
   if (id) {
@@ -18,15 +20,15 @@ export const makeFetchAction = (type, schema, path) => (options = {}) => {
     fetchUrl = url
   }
   fetchUrl = fetchUrl.replace(API_BASE_URL, '')
-
+  console.log(params, filter);
   return {
     type,
     payload: {
       options: {
         returnRejectedPromiseOnError: true,
       },
-      request: { url: fetchUrl, params }
+      request: { url: fetchUrl, params, filter }
     },
-    response: { schema, fetchUrl }
+    response: { schema, fetchUrl, filter }
   }
 }

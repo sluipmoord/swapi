@@ -53,6 +53,19 @@ const pagination = (state = {
   return state
 }
 
+const filter = (state = {
+  name: ''
+}, { type, ...action }) => {
+  const { data, config, request } = getPayload(action)
+  if (type == FETCH_PEOPLE) {
+    return {
+      ...state,
+      ...request.filter
+    }
+  }
+  return state
+}
+
 const error = (state = false, { type, ...action }) => {
   if (type == FETCH_PEOPLE_FAILURE || type == FETCH_PERSON_FAILURE) {
     return true
@@ -66,6 +79,7 @@ export const peopleReducer = combineReducers({
   peopleByPage,
   pagination,
   error,
+  filter,
   isFetching: makeIsFetching(FETCH_PEOPLE),
   isFetchingPerson: makeIsFetching(FETCH_PERSON)
 })

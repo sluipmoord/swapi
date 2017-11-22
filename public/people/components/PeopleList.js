@@ -3,7 +3,18 @@ import moment from 'moment'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Alert, Table, Progress, Pagination, PaginationItem, PaginationLink  } from 'reactstrap'
+import {
+  Form,
+  Alert,
+  Table,
+  Input,
+  FormText,
+  Progress,
+  FormGroup,
+  Pagination,
+  PaginationLink,
+  PaginationItem
+} from 'reactstrap'
 
 import { fetchPeople } from '../actions'
 import { getPeople } from '../selectors'
@@ -42,29 +53,44 @@ class PeopleList extends Component {
     this.props.fetchPeople({ url })
   }
 
-  render() {
-    const { isFetching, pagination, people = [] } = this.props
+  handleSearch = (e) => {
+    const { filter } = this.props
+    const options = {
+      filter: {
+        ...filter,
+        name: e.target.value
+      }
+    }
+    console.log(options);
+    this.props.fetchPeople(options)
+  }
 
+  render() {
+    const { isFetching, pagination, filter, people = [] } = this.props
+    console.log(filter);
     let body
     if (isFetching) {
       body = <Loading />
     } else if (people.length > 0) {
       body = (
-        <Table>
-          <thead>
-            <tr>
-              <th> Name </th>
-              <th> Height </th>
-              <th> Mass </th>
-              <th> Created </th>
-              <th> Edited </th>
-              <th> Planet </th>
-            </tr>
-          </thead>
-          <tbody>
-            { people.map(this.renderPerson)}
-          </tbody>
-        </Table>
+        <div>
+
+          <Table>
+            <thead>
+              <tr>
+                <th> Name </th>
+                <th> Height </th>
+                <th> Mass </th>
+                <th> Created </th>
+                <th> Edited </th>
+                <th> Planet </th>
+              </tr>
+            </thead>
+            <tbody>
+              { people.map(this.renderPerson)}
+            </tbody>
+          </Table>
+        </div>
       )
     } else {
       <Alert color="info">
@@ -74,6 +100,11 @@ class PeopleList extends Component {
 
     return (
       <div>
+        <Form>
+          <FormGroup>
+            <Input value={filter.name} type="text" name="name" id="name" placeholder="Search by name" onChange={this.handleSearch}/>
+          </FormGroup>
+        </Form>
         { body }
         { !isFetching && <Pagination >
             { pagination.previous && <PaginationItem style={{'margin': 20,'position': 'absolute', 'left': 0}}>
@@ -93,12 +124,13 @@ class PeopleList extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const { isFetching, pagination } = state.people
+  const { isFetching, pagination, filter } = state.people
 
   const props = {
     isFetching,
     people: getPeople({ state, page: pagination.current }),
-    pagination
+    pagination,
+    filter
   }
 
   return props
