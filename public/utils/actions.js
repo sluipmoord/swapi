@@ -22,6 +22,9 @@ export const makeFetchAction = (type, schema, path) => (options = {}) => {
   return {
     type,
     payload: {
+      options: {
+        returnRejectedPromiseOnError: true,
+      },
       request: { url: fetchUrl, params }
     },
     response: { schema, fetchUrl }

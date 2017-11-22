@@ -1,7 +1,12 @@
-
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+
+import { fetchPerson } from '../actions'
+import { getPerson } from '../selectors'
+
+import { Progress } from 'reactstrap'
 
 class HomeworldPage extends Component {
 
@@ -14,7 +19,7 @@ class HomeworldPage extends Component {
 
   componentDidMount () {
     // Open when page renders
-
+    console.log(this.props.isFetching, this.props.person);
     setTimeout(() => {
       this.setState({
         isOpen: true
@@ -22,12 +27,24 @@ class HomeworldPage extends Component {
     }, 350)
   }
 
+  componentWillReceiveProps (nextProps) {
+    const { isFetching, person } = nextProps
+
+    if (!isFetching && !person) {
+      this.props.fetchPerson({
+        url: nextProps.personUrl
+      }).catch(error => {
+        console.error(error);
+        this.props.history.push('/people')
+      })
+    }
+  }
+
   close = () => {
     this.setState({
       isOpen: false
     })
     setTimeout(() => {
-      console.log(this.props.history);
       if (this.props.history.location) {
         this.props.history.goBack()
       } else {
@@ -38,11 +55,24 @@ class HomeworldPage extends Component {
 
   render() {
     const { isOpen } = this.state
-    console.log(isOpen);
+    const { isFetching, person } = this.props
+
+    let body
+    if (isFetching || !person) {
+      body = <div>
+        <h3> Loading </h3>
+        <Progress animated color="info" value={100} />
+      </div>
+    } else if (person) {
+      body = <p> {person.name} </p>
+    }
+
     return (
       <Modal backdrop={true} isOpen={isOpen} toggle={this.close}>
         <ModalHeader> Homeworld </ModalHeader>
-        <ModalBody> Hello </ModalBody>
+        <ModalBody>
+          { body }
+        </ModalBody>
         <ModalFooter>
             <Button color="secondary" onClick={this.close}> Close </Button>
           </ModalFooter>
@@ -51,4 +81,22 @@ class HomeworldPage extends Component {
   }
 }
 
-export default HomeworldPage
+const mapStateToProps = (state, ownProps) => {
+  const { isFetching, isFetchingPerson } = state.people
+  const { match } = ownProps
+
+  const personUrl = `${API_BASE_URL}people/${match.params.id}/`
+  const props = {
+    isFetching: isFetching || isFetchingPerson,
+    person: getPerson({ state, url: personUrl }),
+    personUrl
+  }
+
+  console.log(props);
+  return props
+}
+const mapDispatchToProps = {
+  fetchPerson
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeworldPage)

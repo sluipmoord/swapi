@@ -17,7 +17,7 @@ class PeopleList extends Component {
   }
 
   componentDidMount () {
-    if (!this.props.isFetching && !this.props.currentPage) {
+    if (!this.props.isFetching && !this.props.pagination.current) {
       this.props.fetchPeople()
     }
   }
