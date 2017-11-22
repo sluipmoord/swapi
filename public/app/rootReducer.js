@@ -2,9 +2,11 @@ import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
 import { peopleReducer } from '../people'
+import { planetsReducer } from '../planets'
 
 const reducers = {
-  people: peopleReducer
+  people: peopleReducer,
+  planets: planetsReducer
 }
 
 const appReducer = combineReducers({

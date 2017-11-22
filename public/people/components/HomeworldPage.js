@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap'
 
 import { fetchPerson } from '../actions'
 import { getPerson } from '../selectors'
+
+import { Planet } from '../../planets'
+import { Loading } from '../../utils'
 
 import { Progress } from 'reactstrap'
 
@@ -59,17 +62,14 @@ class HomeworldPage extends Component {
 
     let body
     if (isFetching || !person) {
-      body = <div>
-        <h3> Loading </h3>
-        <Progress animated color="info" value={100} />
-      </div>
+      body = <Loading />
     } else if (person) {
-      body = <p> {person.name} </p>
+      body = <Planet planetUrl={person.homeworld} />
     }
 
     return (
       <Modal backdrop={true} isOpen={isOpen} toggle={this.close}>
-        <ModalHeader> Homeworld </ModalHeader>
+        <ModalHeader> { person && <span> { person.name }'s </span> } Homeworld Planet </ModalHeader>
         <ModalBody>
           { body }
         </ModalBody>

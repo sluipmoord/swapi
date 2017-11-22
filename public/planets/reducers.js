@@ -3,15 +3,16 @@ import { combineReducers } from 'redux'
 import { mergeEntities, makeIsFetching } from '../utils'
 
 import {
-  FETCH_PERSON,
-  FETCH_PERSON_SUCCESS,
-  FETCH_PERSON_FAILURE,
+  FETCH_PLANET,
+  FETCH_PLANET_SUCCESS,
+  FETCH_PLANET_FAILURE,
 } from './actionTypes'
-import { PERSON_SCHEMA } from './schemas'
 
-const planetById = (state = {}, { type, ...action }) => {
-  if (type == FETCH_PLANET_SUCCESS || type == FETCH_PERSON_SUCCESS) {
-    return mergeEntities(state, action, PERSON_SCHEMA.key)
+import { PLANET_SCHEMA } from './schemas'
+
+const planetsById = (state = {}, { type, ...action }) => {
+  if (type == FETCH_PLANET_SUCCESS) {
+    return mergeEntities(state, action, PLANET_SCHEMA.key)
   }
 
   return state
@@ -25,7 +26,7 @@ const error = (state = false, { type, ...action }) => {
   return state
 }
 
-export const planetReducer = combineReducers({
-  planetById,
+export const planetsReducer = combineReducers({
+  planetsById,
   isFetching: makeIsFetching(FETCH_PLANET)
 })

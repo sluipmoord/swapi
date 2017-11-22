@@ -7,6 +7,7 @@ import { Table, Progress, Pagination, PaginationItem, PaginationLink  } from 're
 
 import { fetchPeople } from '../actions'
 import { getPeople } from '../selectors'
+import { Loading } from '../../utils'
 
 class PeopleList extends Component {
   static propTypes = {
@@ -46,10 +47,7 @@ class PeopleList extends Component {
 
     let body
     if (isFetching) {
-      body = <div>
-        <h3> Loading </h3>
-        <Progress animated color="info" value={100} />
-      </div>
+      body = <Loading />
     } else {
       body = (
         <Table>

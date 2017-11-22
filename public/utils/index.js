@@ -1,3 +1,4 @@
+
 export {
   getPayload,
   mergeEntities,
@@ -7,3 +8,7 @@ export {
 export {
   makeFetchAction,
 } from './actions'
+
+export {
+  Loading,
+} from './components'
