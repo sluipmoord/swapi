@@ -3,7 +3,7 @@ import moment from 'moment'
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Table, Progress, Pagination, PaginationItem, PaginationLink  } from 'reactstrap'
+import { Alert, Table, Progress, Pagination, PaginationItem, PaginationLink  } from 'reactstrap'
 
 import { fetchPeople } from '../actions'
 import { getPeople } from '../selectors'
@@ -48,7 +48,7 @@ class PeopleList extends Component {
     let body
     if (isFetching) {
       body = <Loading />
-    } else {
+    } else if (people.length > 0) {
       body = (
         <Table>
           <thead>
@@ -62,10 +62,14 @@ class PeopleList extends Component {
             </tr>
           </thead>
           <tbody>
-            {people.map(this.renderPerson)}
+            { people.map(this.renderPerson)}
           </tbody>
         </Table>
       )
+    } else {
+      <Alert color="info">
+        No results found
+      </Alert>
     }
 
     return (
